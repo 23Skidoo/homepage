@@ -1,0 +1,43 @@
+html {
+   padding: 0;
+   margin: 0;
+   background-color: #ffffff;
+}
+body {
+   font-family: "Bookman Old Style",
+                "Serifa BT",
+                "URW Bookman L",
+                "itc bookman",
+                times,
+                serif;
+   padding-top: 10%;
+   padding-left: 30%;
+   margin: 0;
+}
+h1 {
+    font-family: Helvetica, Verdana, sans-serif;
+}
+a {
+   text-decoration: underline;
+}
+a :hover {
+   cursor: pointer;
+   text-decoration: underline;
+}
+img {
+   border: none;
+}
+
+#rect {
+   width: 500px;
+   height:100px;
+   background-color:#000000;
+}
+
+#content {
+   width: 500px;
+}
+
+#info {
+   font-size: 60%;
+}

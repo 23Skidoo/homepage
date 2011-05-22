@@ -12,9 +12,9 @@ main = hakyll $ do
 
     match "templates/*" $ compile templateCompiler
 
-    forM_ ["about.rst", "index.md", "code.lhs"] $ \page ->
+    forM_ ["index.html", "404.html"] $ \page ->
         match page $ do
             route   $ setExtension "html"
-            compile $ pageCompiler
+            compile $ readPageCompiler
                 >>> applyTemplateCompiler "templates/default.html"
                 >>> relativizeUrlsCompiler

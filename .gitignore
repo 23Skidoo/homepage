@@ -1,3 +1,6 @@
+*.hi
+*.o
+content/hakyll
 server/log
 server/dist
 content/_site
