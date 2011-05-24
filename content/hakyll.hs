@@ -36,11 +36,6 @@ main = hakyll $ do
                   route idRoute
                   compile copyFileCompiler
 
-         -- JavaScript
-         match "js/*" $ do
-                  route idRoute
-                  compile copyFileCompiler
-
          -- Templates
          match "templates/*" $ compile templateCompiler
 
@@ -67,7 +62,7 @@ main = hakyll $ do
          match "entries.html" $ route idRoute
          create "entries.html" $ constA mempty
                 >>> arr (setField "title" "Posts")
-                >>> requireAllA "blog/*" addPostList
+                >>> requireAllA ("blog/*" `mappend` inGroup Nothing) addPostList
                 >>> requireA "tags" (setFieldA "tagcloud" (renderTagCloud'))
                 >>> applyTemplateCompiler "templates/entries.html"
                 >>> applyTemplateCompiler "templates/base.html"
@@ -75,7 +70,8 @@ main = hakyll $ do
 
          -- Tags
          create "tags" $
-                requireAll "blog/*" (\_ ps -> readTags ps :: Tags String)
+                requireAll ("blog/*" `mappend` inGroup Nothing)
+                               (\_ ps -> readTags ps :: Tags String)
 
          -- Add a tag list compiler for every tag
          match "tags/*" $ route $ setExtension ".html"
@@ -94,7 +90,7 @@ main = hakyll $ do
          match "rss.xml" $ route idRoute
          create "rss.xml" $ requireAll_ ("blog/*" `mappend`
                                                    inGroup (Just "rss"))
-                    >>> arr (takeLast 10)
+                    >>> arr (reverse . takeLast 10)
                     >>> arr (map $ copyBodyToField "description")
                     >>> renderRss feedConfiguration
 
