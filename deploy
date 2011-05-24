@@ -1,0 +1,15 @@
+#! /bin/sh
+
+# On server:
+# sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8000!
+
+cd server
+cabal build
+scp dist/build/server/server ec2:bin/homepage-server
+cd ..
+
+cd content
+make all
+ln -s ../js _site/js
+rsync -e ssh -varuzPL _site/ ec2:www/static
+cd ..
