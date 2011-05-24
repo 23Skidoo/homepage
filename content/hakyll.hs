@@ -1,11 +1,14 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-import Data.Monoid(mempty, mconcat)
 import Control.Arrow (arr, (>>>))
 import Control.Monad (forM_)
+import Data.List(isPrefixOf, isSuffixOf)
+import Data.Monoid(mempty, mconcat)
 
 import Hakyll
 
+import Text.HTML.TagSoup
+import Text.HTML.TagSoup.Tree
 import Text.Pandoc (HTMLMathMethod(..), WriterOptions(..), defaultWriterOptions)
 
 main :: IO ()
@@ -41,11 +44,11 @@ main = hakyll $ do
          -- Index
          forM_ ["index.md", "404.md"] $ \page ->
              match page $ do
-                  route $ setExtension "html"
+                  route $ setExtension ".html"
                   compile $ myPageCompiler
                           >>> applyTemplateCompiler "templates/index.html"
                           >>> applyTemplateCompiler "templates/base.html"
-                          >>> relativizeUrlsCompiler
+                          >>> processLocalUrlsCompiler
 
          -- Posts
          match "blog/*" $ do
@@ -55,6 +58,7 @@ main = hakyll $ do
                    >>> renderTagsField "prettytags" (fromCapture "tags/*")
                    >>> applyTemplateCompiler "templates/entry.html"
                    >>> applyTemplateCompiler "templates/base.html"
+                   >>> processLocalUrlsCompiler
 
          -- Post list
          match "entries.html" $ route idRoute
@@ -64,6 +68,7 @@ main = hakyll $ do
                 >>> requireA "tags" (setFieldA "tagcloud" (renderTagCloud'))
                 >>> applyTemplateCompiler "templates/entries.html"
                 >>> applyTemplateCompiler "templates/base.html"
+                >>> processLocalUrlsCompiler
 
          -- Tags
          create "tags" $
@@ -79,6 +84,8 @@ main = hakyll $ do
          -- RSS
          match "rss.xml" $ route idRoute
          create "rss.xml" $ requireAll_ "blog/*"
+                    >>> arr (map $ fmap extractContent)
+                    >>> arr (map $ copyBodyToField "description")
                     >>> renderRss feedConfiguration
 
     where
@@ -107,6 +114,7 @@ makeTagList tag posts =
         >>> arr (setField "title" ("Posts tagged '" ++ tag ++ "'"))
         >>> applyTemplateCompiler "templates/tags.html"
         >>> applyTemplateCompiler "templates/base.html"
+        >>> processLocalUrlsCompiler
 
 -- | Make Pandoc and MathJax play together.
 myPageCompiler :: Compiler Resource (Page String)
@@ -123,3 +131,52 @@ feedConfiguration = FeedConfiguration
     , feedAuthorName = "Mikhail Glushenkov"
     , feedRoot = "http://dissocial.st"
     }
+
+-- | path/to/smthng.html -> path/to/smthng
+processLocalUrlsCompiler :: Compiler (Page String) (Page String)
+processLocalUrlsCompiler = arr $ fmap (processHtml
+                                       $ map (processAttrs processHref))
+
+processHtml :: ([Tag String] -> [Tag String]) -- ^ HTML processing function
+               -> String                      -- ^ HTML to process
+               -> String                      -- ^ Resulting HTML
+processHtml f = renderTags . f . parseTags
+
+-- | <html> ... <div id="content">$TARGET</div> ... </html> -> $TARGET
+-- HACK: I should render entries specifically for RSS with a different template.
+extractContent :: String -> String
+extractContent = processHtml (dropComments . extractDivContent)
+
+extractDivContent :: [Tag String] -> [Tag String]
+extractDivContent = flattenTree . concatMap extractDivContent' . tagTree
+    where
+      extractDivContent' :: TagTree String -> [TagTree String]
+      extractDivContent' (TagBranch "div" attrs cs) | check attrs = cs
+      extractDivContent' (TagBranch _ _ cs) = concatMap extractDivContent' cs
+      extractDivContent' _                  = []
+
+      check = elem ("id", "content")
+
+dropComments :: [Tag String] -> [Tag String]
+dropComments l = fst . unzip . takeWhile (uncurry notComments) $
+                 (zip l (tail l))
+    where
+      notComments (TagOpen "h2" _) (TagText "Comments") = False
+      notComments _ _                                   = True
+
+processAttrs :: (Attribute String -> Attribute String)
+             -> Tag String -> Tag String
+processAttrs f (TagOpen s a) = TagOpen s $ map f a
+processAttrs _ x = x
+
+processHref :: Attribute String -> Attribute String
+processHref (key, value)
+    | key == "href"
+      && "http://" `isNotPrefixOf` value
+      && htmlSuffix `isSuffixOf` value = (key, dropHtmlSuffix value)
+    | otherwise = (key, value)
+  where
+    htmlSuffix = ".html"
+
+    isNotPrefixOf l = not . isPrefixOf l
+    dropHtmlSuffix s = take ((length s) - (length htmlSuffix)) s

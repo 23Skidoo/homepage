@@ -143,10 +143,10 @@ wrapped around State:
 You can probably safely ignore my comments and crib the code above
 directly for your own use.
 
-And credit where credit's due: I found the following link to be
-more helpful than any other in trying to figure this stuff out
-http://www.cs.nott.ac.uk/~nhn/MGS2006/LectureNotes/lecture03-9up.pdf
-(But I still felt that this link was obfuscating.)
+And credit where credit's due: I found the [following
+link](http://www.cs.nott.ac.uk/~nhn/MGS2006/LectureNotes/lecture03-9up.pdf) to
+be more helpful than any other in trying to figure this stuff out (But I still
+felt that this link was obfuscating.)
 
 You may now be wondering where test4 and test6 are. So am I.
 

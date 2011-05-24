@@ -1,7 +1,7 @@
 hakyll : hakyll.hs
 	ghc --make hakyll.hs
 
-all! : hakyll
+all : hakyll
 	./hakyll rebuild
 
 clean :
