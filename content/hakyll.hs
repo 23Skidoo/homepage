@@ -3,12 +3,15 @@
 import Control.Arrow (arr, (>>>))
 import Control.Monad (forM_)
 import Data.List(isPrefixOf, isSuffixOf)
-import Data.Monoid(mempty, mconcat)
+import Data.Monoid(mappend, mempty, mconcat)
+import System.FilePath (dropExtension)
+
+import Data.Map((!))
+import qualified Data.Map as M
 
 import Hakyll
 
 import Text.HTML.TagSoup
-import Text.HTML.TagSoup.Tree
 import Text.Pandoc (HTMLMathMethod(..), WriterOptions(..), defaultWriterOptions)
 
 main :: IO ()
@@ -82,9 +85,16 @@ main = hakyll $ do
                                            (tagIdentifier t, makeTagList t p)))
 
          -- RSS
+         group "rss" $ do
+                  match "blog/*" $ do
+                         -- No route
+                         compile $ pageCompiler
+                            >>> (arr setPageUrl)
+
          match "rss.xml" $ route idRoute
-         create "rss.xml" $ requireAll_ "blog/*"
-                    >>> arr (map $ fmap extractContent)
+         create "rss.xml" $ requireAll_ ("blog/*" `mappend`
+                                                   inGroup (Just "rss"))
+                    >>> arr (takeLast 10)
                     >>> arr (map $ copyBodyToField "description")
                     >>> renderRss feedConfiguration
 
@@ -95,6 +105,18 @@ main = hakyll $ do
 
       tagIdentifier :: String -> Identifier
       tagIdentifier = fromCapture "tags/*"
+
+-- Make $url from $path
+setPageUrl :: Page a -> Page a
+setPageUrl p = let metaData = pageMetadata p
+                   pth = dropExtension $ metaData ! "path"
+                   newMetadata = M.insert "url" ("/" ++ pth) metaData
+               in p { pageMetadata = newMetadata }
+
+-- Take N last items from the list
+takeLast :: Int -> [a] -> [a]
+takeLast n xs = let l = length xs
+                in drop (min l (l - n)) xs
 
 -- | Auxiliary compiler: generate a post list from a list of given posts, and
 -- add it to the current page under @$posts@
@@ -141,28 +163,6 @@ processHtml :: ([Tag String] -> [Tag String]) -- ^ HTML processing function
                -> String                      -- ^ HTML to process
                -> String                      -- ^ Resulting HTML
 processHtml f = renderTags . f . parseTags
-
--- | <html> ... <div id="content">$TARGET</div> ... </html> -> $TARGET
--- HACK: I should render entries specifically for RSS with a different template.
-extractContent :: String -> String
-extractContent = processHtml (dropComments . extractDivContent)
-
-extractDivContent :: [Tag String] -> [Tag String]
-extractDivContent = flattenTree . concatMap extractDivContent' . tagTree
-    where
-      extractDivContent' :: TagTree String -> [TagTree String]
-      extractDivContent' (TagBranch "div" attrs cs) | check attrs = cs
-      extractDivContent' (TagBranch _ _ cs) = concatMap extractDivContent' cs
-      extractDivContent' _                  = []
-
-      check = elem ("id", "content")
-
-dropComments :: [Tag String] -> [Tag String]
-dropComments l = fst . unzip . takeWhile (uncurry notComments) $
-                 (zip l (tail l))
-    where
-      notComments (TagOpen "h2" _) (TagText "Comments") = False
-      notComments _ _                                   = True
 
 processAttrs :: (Attribute String -> Attribute String)
              -> Tag String -> Tag String
