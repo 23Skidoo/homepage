@@ -5,7 +5,7 @@
 
 cd server
 cabal build
-scp dist/build/server/server ec2:bin/homepage-server
+rsync -e ssh -varuzP dist/build/server/server ec2:bin/homepage-server
 cd ..
 
 cd content
