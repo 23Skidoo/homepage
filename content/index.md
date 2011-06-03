@@ -2,8 +2,9 @@
 title: Home
 ---
 
-Welcome to my humble abode. You are probably here because you want to read my
-[blog](/blog). I also have accounts on [Twitter](http://twitter.com/refold) and
+Welcome to my humble abode. Most probably, you are here because you want to read
+my [blog](/blog) ([RSS](http://feeds.feedburner.com/ChurningAndChurning)). I also
+have accounts on [Twitter](http://twitter.com/refold) and
 [GitHub](http://github.com/23Skidoo).
 
 Misc

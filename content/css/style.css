@@ -13,7 +13,7 @@ body {
     margin: 0;
     background-color: #ffffff;
 }
-h1,h2 {
+h1,h2,h3 {
     font-family: Helvetica, Verdana, sans-serif;
 }
 a {
@@ -37,7 +37,6 @@ ul {
 img {
     border: none;
     display: block;
-    margin: 0 auto;
 }
 p.caption {
     font-size: 14px;
@@ -45,16 +44,41 @@ p.caption {
     color: rgb(100, 100, 100);
 }
 #rect {
-    width: 600px;
-    height:100px;
+    width: 300px;
+    height:150px;
     background-color:#000000;
     margin: 2em auto;
 }
+
 #content {
+    text-align: justify;
+}
+
+ul, p, h1, h2, .tags, #disqus_thread {
     clear: both;
     width: 600px;
     margin: 0 auto;
 }
+
+.tags {
+    margin-bottom: 1em;
+}
+
+p {
+    margin-bottom: 0.6em;
+}
+
+h2,ul {
+    margin-top: 0.8em;
+    margin-bottom: 1em;
+}
+
+img {
+    clear: both;
+    margin: 0 auto;
+    padding-bottom: 0.5em;
+}
+
 #info {
     font-size: 60%;
     width: 600px;
