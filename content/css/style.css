@@ -11,7 +11,6 @@ body {
     serif;
     padding: 0;
     margin: 0;
-    background-color: #ffffff;
 }
 h1,h2,h3 {
     font-family: Helvetica, Verdana, sans-serif;
@@ -58,6 +57,10 @@ ul, p, h1, h2, .tags, #disqus_thread {
     clear: both;
     width: 600px;
     margin: 0 auto;
+}
+
+ul, p, h2, .tags, #disqus_thread {
+    color: #444;
 }
 
 .tags {
