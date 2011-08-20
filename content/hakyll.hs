@@ -99,7 +99,7 @@ main = hakyll $ do
       renderTagCloud' :: Compiler (Tags String) String
       renderTagCloud' = renderTagCloud tagIdentifier 100 120
 
-      tagIdentifier :: String -> Identifier
+      tagIdentifier :: String -> Identifier (Page String)
       tagIdentifier = fromCapture "tags/*"
 
 -- Make $url from $path
@@ -118,7 +118,7 @@ takeLast n xs = let l = length xs
 -- add it to the current page under @$posts@
 addPostList :: Compiler (Page String, [Page String]) (Page String)
 addPostList = setFieldA "entries" $
-    arr (reverse . sortByBaseName)
+    arr (reverse . chronological)
         >>> require "templates/entryitem.html" (\p t -> map (applyTemplate t) p)
         >>> arr mconcat
         >>> arr pageBody
