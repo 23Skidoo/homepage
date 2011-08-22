@@ -53,7 +53,7 @@ p.caption {
     text-align: justify;
 }
 
-ul, p, h1, h2, .tags, #disqus_thread {
+ul, p, h1, h2, .tags, pre, #disqus_thread {
     clear: both;
     width: 600px;
     margin: 0 auto;
