@@ -145,9 +145,9 @@ myWriterOptions = defaultWriterOptions { writerLiterateHaskell = True
 feedConfiguration :: FeedConfiguration
 feedConfiguration = FeedConfiguration
     { feedTitle = "Churning and Churning"
-    , feedDescription = "Notes on the GSoC 2011 Cabal project"
+    , feedDescription = "Much wailing and gnashing of teeth"
     , feedAuthorName = "Mikhail Glushenkov"
-    , feedRoot = "http://dissocial.st/blog"
+    , feedRoot = "http://dissocial.st"
     }
 
 -- | path/to/smthng.html -> path/to/smthng
