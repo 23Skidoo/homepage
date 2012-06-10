@@ -8,7 +8,7 @@ import qualified Data.ByteString.Char8 as C
 import Control.Applicative
 import Snap.Http.Server
 import Snap.Util.FileServe
-import Snap.Types
+import Snap.Core
 
 rootFile :: FilePath
 rootFile = "static/entries.html"
@@ -18,12 +18,13 @@ fileNotFound =  do modifyResponse $ setResponseStatus 404 "File Not Found"
                    serveFile "static/404.html"
 
 site :: Snap ()
-site = route [ ("/blog", serveFile rootFile)
-             , ("/blog/:id", serveHtmlFile "static/blog")
-             , ("/tags", serveFile rootFile)
-             , ("/tags/:id", serveHtmlFile "static/tags")
-             ]
-       <|> serveDirectory "static"
+site = ifTop (redirect "/e")
+       <|> route [ ("/e/blog", serveFile rootFile)
+                 , ("/e/blog/:id", serveHtmlFile "static/blog")
+                 , ("/e/tags", serveFile rootFile)
+                 , ("/e/tags/:id", serveHtmlFile "static/tags")
+                 ]
+       <|> dir "e" (serveDirectory "static")
        <|> fileNotFound
 
 serveHtmlFile :: B.ByteString -> Snap ()
