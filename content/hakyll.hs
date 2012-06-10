@@ -106,7 +106,7 @@ main = hakyll $ do
 setPageUrl :: Page a -> Page a
 setPageUrl p = let metaData = pageMetadata p
                    pth = dropExtension $ metaData ! "path"
-                   newMetadata = M.insert "url" ("/" ++ pth) metaData
+                   newMetadata = M.insert "url" ("/e" ++ pth) metaData
                in p { pageMetadata = newMetadata }
 
 -- Take N last items from the list
@@ -147,10 +147,10 @@ feedConfiguration = FeedConfiguration
     { feedTitle = "Churning and Churning"
     , feedDescription = "Much wailing and gnashing of teeth"
     , feedAuthorName = "Mikhail Glushenkov"
-    , feedRoot = "http://dissocial.st"
+    , feedRoot = "http://coldwa.st/e"
     }
 
--- | path/to/smthng.html -> path/to/smthng
+-- | path/to/smthng.html -> /e/path/to/smthng
 processLocalUrlsCompiler :: Compiler (Page String) (Page String)
 processLocalUrlsCompiler = arr $ fmap (processHtml
                                        $ map (processAttrs processHref))
@@ -169,7 +169,7 @@ processHref :: Attribute String -> Attribute String
 processHref (key, value)
     | key == "href"
       && "http://" `isNotPrefixOf` value
-      && htmlSuffix `isSuffixOf` value = (key, dropHtmlSuffix value)
+      && htmlSuffix `isSuffixOf` value = (key, "/e" ++ dropHtmlSuffix value)
     | otherwise = (key, value)
   where
     htmlSuffix = ".html"
