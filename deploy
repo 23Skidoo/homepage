@@ -5,11 +5,11 @@
 
 cd server
 cabal build
-rsync -e ssh -varuzP dist/build/server/server ec2:bin/homepage-server
+rsync -e ssh -varuzP dist/build/server/server www@coldwaste:bin/homepage-server
 cd ..
 
 cd content
 make all
 ln -s ../js _site/js
-rsync -e ssh -varuzPL _site/ ec2:www/static
+rsync -e ssh -varuzPL _site/ www@coldwaste:www/static
 cd ..
