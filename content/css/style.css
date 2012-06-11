@@ -2,7 +2,7 @@ html {
     overflow-y:scroll;
 }
 body {
-    min-width: 660px;
+    min-width: 760px;
     font-family: "Bookman Old Style",
     "Serifa BT",
     "URW Bookman L",
@@ -43,7 +43,7 @@ p.caption {
     color: rgb(100, 100, 100);
 }
 #rect {
-    width: 300px;
+    width: 400px;
     height:150px;
     background-color:#000000;
     margin: 2em auto;
@@ -53,13 +53,15 @@ p.caption {
     text-align: justify;
 }
 
-ul, p, h1, h2, .tags, pre, #disqus_thread {
+/*ul, p, h1, h2, .tags, pre,*/
+
+#content, #disqus_thread {
     clear: both;
-    width: 600px;
+    width: 700px;
     margin: 0 auto;
 }
 
-ul, p, h2, .tags, #disqus_thread {
+#content ul, #content p, #content h2, #disqus_thread p, .tags {
     color: #444;
 }
 
@@ -82,6 +84,11 @@ img {
     padding-bottom: 0.5em;
 }
 
+#index_content {
+    width: 600px;
+    margin: 0 auto;
+    color: #444;
+}
 #info {
     font-size: 60%;
     width: 600px;
