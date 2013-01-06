@@ -144,10 +144,11 @@ myWriterOptions = defaultWriterOptions { writerLiterateHaskell = True
 
 feedConfiguration :: FeedConfiguration
 feedConfiguration = FeedConfiguration
-    { feedTitle = "Churning and Churning"
+    { feedTitle       = "Churning and Churning"
     , feedDescription = "Much wailing and gnashing of teeth"
-    , feedAuthorName = "Mikhail Glushenkov"
-    , feedRoot = "http://coldwa.st/e"
+    , feedAuthorName  = "Mikhail Glushenkov"
+    , feedAuthorEmail = "mikhail.glushenkov@gmail.com"
+    , feedRoot        = "http://coldwa.st/e"
     }
 
 -- | path/to/smthng.html -> /e/path/to/smthng
