@@ -5,3 +5,4 @@ server/log
 server/dist
 content/_site
 content/_cache
+cabal-dev
