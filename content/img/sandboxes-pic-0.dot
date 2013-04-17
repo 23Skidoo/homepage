@@ -1,0 +1,9 @@
+digraph G {
+  rankdir = LR;
+  FOO [label="foo-1.0"];
+  BAR [label="bar-1.0"];
+  BAZ [label="baz-1.0"];
+
+  FOO -> BAR;
+  BAR -> BAZ;
+}
