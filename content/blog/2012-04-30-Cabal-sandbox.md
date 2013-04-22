@@ -72,7 +72,7 @@ TODO
 Advanced usage
 --------------
 
-TODO: `sandbox --snapshot`, `hc-pkg`, shared sandboxes
+TODO: `sandbox --snapshot`, `hc-pkg`, shared sandboxes, multiple compilers
 
 For the users of `cabal-dev`
 ----------------------------
@@ -91,6 +91,7 @@ but integrated into Cabal itself. Here's a handy cheatsheet for the users of
 | Build the current package                 | `cabal-dev build`            | `cabal build`                         |
 | Install a package into the sandbox        | `cabal-dev install $PKGNAME` | `cabal install $PKGNAME`              |
 | Any other standard `cabal` command        | `cabal-dev $COMMAND`         | `cabal $COMMAND`                      |
+| Install dependencies of a package         | `cabal-dev install-deps`     | `cabal install --only-dependencies`   |
 | Run sandbox-local ghci                    | `cabal-dev ghci`             | N/A (will be `cabal repl`)            |
 | Sandbox-restricted `ghc-pkg`              | `cabal-dev ghc-pkg`          | `cabal hc-pkg`                        |
 | Path to the sandbox directory             | `./cabal-dev`                | `./.cabal-sandbox`                    |

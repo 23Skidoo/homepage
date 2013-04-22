@@ -1,5 +1,8 @@
+GHC_VERSION=7.4.2
+
 hakyll : hakyll.hs
-	ghc --make hakyll.hs
+	ghc -no-user-package-conf -package-conf \
+	cabal-dev/packages-$(GHC_VERSION).conf -Wall --make hakyll.hs
 
 all : hakyll
 	./hakyll rebuild

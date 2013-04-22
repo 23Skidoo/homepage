@@ -1,146 +1,110 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-import Control.Arrow (arr, (>>>))
-import Control.Monad (forM_)
-import Data.List(isPrefixOf, isSuffixOf)
-import Data.Monoid(mappend, mempty, mconcat)
-import System.FilePath (dropExtension)
-
-import Data.Map((!))
-import qualified Data.Map as M
+import Data.List(isPrefixOf)
+import Data.Monoid(mappend, mconcat)
 
 import Hakyll
 
-import Text.HTML.TagSoup
-import Text.Pandoc (HTMLMathMethod(..), WriterOptions(..), defaultWriterOptions)
+import Text.Pandoc (HTMLMathMethod(..), WriterOptions(..))
 
 main :: IO ()
 main = hakyll $ do
-         -- CSS
-         match "css/*" $ do
-                  route idRoute
-                  compile compressCssCompiler
+  -- CSS
+  match "css/*" $ do
+    route idRoute
+    compile compressCssCompiler
 
-         -- Favicon
-         match "favicon.ico" $ do
-                  route idRoute
-                  compile copyFileCompiler
+  -- Images / Files / Favicon
+  match ("img/*" .||. "files/*" .||. "favicon.ico") $ do
+    route idRoute
+    compile copyFileCompiler
 
-         -- Images
-         match "img/*" $ do
-                  route idRoute
-                  compile copyFileCompiler
+  -- Index / 404
+  match (fromList ["index.md", "404.md"]) $ do
+    route $ setExtension ".html"
+    compile $ pandocCompiler
+      >>= loadAndApplyTemplate "templates/index.html" defaultContext
+      >>= loadAndApplyTemplate "templates/base.html" defaultContext
+      >>= myRelativizeUrls
 
-         -- Files
-         match "files/*" $ do
-                  route idRoute
-                  compile copyFileCompiler
+  -- Tags
+  tags <- buildTags "blog/*" (fromCapture "tags/*.html")
 
-         -- Templates
-         match "templates/*" $ compile templateCompiler
+  -- Posts
+  match "blog/*" $ do
+    route $ setExtension ".html"
+    compile $ myPageCompiler
+      >>= saveSnapshot "content"
+      >>= loadAndApplyTemplate "templates/entry.html" (postCtx tags)
+      >>= loadAndApplyTemplate "templates/base.html" defaultContext
+      >>= myRelativizeUrls
 
-         -- Index
-         forM_ ["index.md", "404.md"] $ \page ->
-             match page $ do
-                  route $ setExtension ".html"
-                  compile $ myPageCompiler
-                          >>> applyTemplateCompiler "templates/index.html"
-                          >>> applyTemplateCompiler "templates/base.html"
-                          >>> processLocalUrlsCompiler
+  -- Post list
+  create ["entries.html"] $ do
+    route idRoute
+    compile $ do
+      list <- postList tags "blog/*" recentFirst
+      tagCloud <- renderTagCloud 100 120 tags
+      makeItem ""
+        >>= loadAndApplyTemplate "templates/entries.html"
+            (constField "title"    "Posts"  `mappend`
+             constField "tagcloud" tagCloud `mappend`
+             constField "entries"  list     `mappend` defaultContext)
+        >>= loadAndApplyTemplate "templates/base.html" defaultContext
+        >>= myRelativizeUrls
 
-         -- Posts
-         match "blog/*" $ do
-                  route $ setExtension ".html"
-                  compile $ pageCompiler
-                   >>> arr (renderDateField "date" "%B %e, %Y" "Date unknown")
-                   >>> renderTagsField "prettytags" (fromCapture "tags/*")
-                   >>> applyTemplateCompiler "templates/entry.html"
-                   >>> applyTemplateCompiler "templates/base.html"
-                   >>> processLocalUrlsCompiler
+  -- Tags
+  tagsRules tags $ \tag pattern -> do
+    let title = "Posts tagged '" ++ tag ++ "'"
+    route idRoute
+    compile $ do
+      list <- postList tags pattern recentFirst
+      makeItem ""
+        >>= loadAndApplyTemplate "templates/tags.html"
+            (constField "title"   title `mappend`
+             constField "entries" list  `mappend` defaultContext)
+        >>= loadAndApplyTemplate "templates/base.html" defaultContext
+        >>= myRelativizeUrls
 
-         -- Post list
-         match "entries.html" $ route idRoute
-         create "entries.html" $ constA mempty
-                >>> arr (setField "title" "Posts")
-                >>> requireAllA ("blog/*" `mappend` inGroup Nothing) addPostList
-                >>> requireA "tags" (setFieldA "tagcloud" (renderTagCloud'))
-                >>> applyTemplateCompiler "templates/entries.html"
-                >>> applyTemplateCompiler "templates/base.html"
-                >>> processLocalUrlsCompiler
+  -- Templates
+  match "templates/*" $ compile templateCompiler
 
-         -- Tags
-         create "tags" $
-                requireAll ("blog/*" `mappend` inGroup Nothing)
-                               (\_ ps -> readTags ps :: Tags String)
+  -- RSS
+  create ["rss.xml"] $ do
+    route idRoute
+    compile $ do
+      loadAllSnapshots "blog/*" "content"
+        >>= fmap (take 10) . recentFirst
+        >>= renderAtom feedConfiguration feedCtx
 
-         -- Add a tag list compiler for every tag
-         match "tags/*" $ route $ setExtension ".html"
-         metaCompile $ require_ "tags"
-                         >>> arr tagsMap
-                         >>> arr (map (\(t, p) ->
-                                           (tagIdentifier t, makeTagList t p)))
+postList :: Tags -> Pattern -> ([Item String] -> Compiler [Item String])
+         -> Compiler String
+postList tags pattern preprocess' = do
+    postItemTpl <- loadBody "templates/entryitem.html"
+    posts <- preprocess' =<< loadAll pattern
+    applyTemplateList postItemTpl (postCtx tags) posts
 
-         -- RSS
-         group "rss" $ do
-                  match "blog/*" $ do
-                         -- No route
-                         compile $ pageCompiler
-                            >>> (arr setPageUrl)
+postCtx :: Tags -> Context String
+postCtx tags = mconcat
+    [ modificationTimeField "mtime" "%U"
+    , dateField "date" "%B %e, %Y"
+    , tagsField "tags" tags
+    , defaultContext
+    ]
 
-         match "rss.xml" $ route idRoute
-         create "rss.xml" $ requireAll_ ("blog/*" `mappend`
-                                                   inGroup (Just "rss"))
-                    >>> arr (reverse . takeLast 10)
-                    >>> arr (map $ copyBodyToField "description")
-                    >>> renderRss feedConfiguration
-
-    where
-
-      renderTagCloud' :: Compiler (Tags String) String
-      renderTagCloud' = renderTagCloud tagIdentifier 100 120
-
-      tagIdentifier :: String -> Identifier (Page String)
-      tagIdentifier = fromCapture "tags/*"
-
--- Make $url from $path
-setPageUrl :: Page a -> Page a
-setPageUrl p = let metaData = pageMetadata p
-                   pth = dropExtension $ metaData ! "path"
-                   newMetadata = M.insert "url" ("/e" ++ pth) metaData
-               in p { pageMetadata = newMetadata }
-
--- Take N last items from the list
-takeLast :: Int -> [a] -> [a]
-takeLast n xs = let l = length xs
-                in drop (min l (l - n)) xs
-
--- | Auxiliary compiler: generate a post list from a list of given posts, and
--- add it to the current page under @$posts@
-addPostList :: Compiler (Page String, [Page String]) (Page String)
-addPostList = setFieldA "entries" $
-    arr (reverse . chronological)
-        >>> require "templates/entryitem.html" (\p t -> map (applyTemplate t) p)
-        >>> arr mconcat
-        >>> arr pageBody
-
-makeTagList :: String
-            -> [Page String]
-            -> Compiler () (Page String)
-makeTagList tag posts =
-    constA (mempty, posts)
-        >>> addPostList
-        >>> arr (setField "title" ("Posts tagged '" ++ tag ++ "'"))
-        >>> applyTemplateCompiler "templates/tags.html"
-        >>> applyTemplateCompiler "templates/base.html"
-        >>> processLocalUrlsCompiler
+feedCtx :: Context String
+feedCtx = mconcat
+    [ bodyField "description"
+    , defaultContext
+    ]
 
 -- | Make Pandoc and MathJax play together.
-myPageCompiler :: Compiler Resource (Page String)
-myPageCompiler = pageCompilerWith defaultHakyllParserState myWriterOptions
+myPageCompiler :: Compiler (Item String)
+myPageCompiler = pandocCompilerWith defaultHakyllReaderOptions myWriterOptions
 
 myWriterOptions :: WriterOptions
-myWriterOptions = defaultWriterOptions { writerLiterateHaskell = True
-                                       , writerHTMLMathMethod = MathJax "" }
+myWriterOptions = defaultHakyllWriterOptions
+                  { writerHTMLMathMethod  = MathJax "" }
 
 feedConfiguration :: FeedConfiguration
 feedConfiguration = FeedConfiguration
@@ -151,29 +115,22 @@ feedConfiguration = FeedConfiguration
     , feedRoot        = "http://coldwa.st/e"
     }
 
--- | path/to/smthng.html -> /e/path/to/smthng
-processLocalUrlsCompiler :: Compiler (Page String) (Page String)
-processLocalUrlsCompiler = arr $ fmap (processHtml
-                                       $ map (processAttrs processHref))
+-- HACK. Relativize all urls except those that start with '/e'. Code copied from
+-- Hakyll.Web.Html.RelativizeUrls.
 
-processHtml :: ([Tag String] -> [Tag String]) -- ^ HTML processing function
-               -> String                      -- ^ HTML to process
-               -> String                      -- ^ Resulting HTML
-processHtml f = renderTags . f . parseTags
+myRelativizeUrls :: Item String -> Compiler (Item String)
+myRelativizeUrls item = do
+  route' <- getRoute $ itemIdentifier item
+  return $ case route' of
+    Nothing -> item
+    Just r  -> fmap (myRelativizeUrlsWith $ toSiteRoot r) item
 
-processAttrs :: (Attribute String -> Attribute String)
-             -> Tag String -> Tag String
-processAttrs f (TagOpen s a) = TagOpen s $ map f a
-processAttrs _ x = x
-
-processHref :: Attribute String -> Attribute String
-processHref (key, value)
-    | key == "href"
-      && "http://" `isNotPrefixOf` value
-      && htmlSuffix `isSuffixOf` value = (key, "/e" ++ dropHtmlSuffix value)
-    | otherwise = (key, value)
+myRelativizeUrlsWith :: String  -- ^ Path to the site root
+                        -> String  -- ^ HTML to relativize
+                        -> String  -- ^ Resulting HTML
+myRelativizeUrlsWith root = withUrls rel
   where
-    htmlSuffix = ".html"
-
-    isNotPrefixOf l = not . isPrefixOf l
-    dropHtmlSuffix s = take ((length s) - (length htmlSuffix)) s
+    isRel x = "/" `isPrefixOf` x && not ("//" `isPrefixOf` x)
+              -- The only thing changed
+              && not ("/e" `isPrefixOf` x)
+    rel x   = if isRel x then root ++ x else x
