@@ -2,7 +2,7 @@
  *
  *  MathJax/jax/output/HTML-CSS/entities/u.js
  *
- *  Copyright (c) 2010 Design Science, Inc.
+ *  Copyright (c) 2010-2013 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@
     'Ugrave': '\u00D9',
     'Umacr': '\u016A',
     'UnderBracket': '\u23B5',
-    'UnderParenthesis': '\uFE36',
+    'UnderParenthesis': '\u23DD',
     'Uogon': '\u0172',
     'UpArrowBar': '\u2912',
     'UpArrowDownArrow': '\u21C5',
@@ -71,6 +71,7 @@
     'upharpoonleft': '\u21BF',
     'upharpoonright': '\u21BE',
     'uplus': '\u228E',
+    'upsih': '\u03D2',
     'upsilon': '\u03C5',
     'urcorn': '\u231D',
     'urcorner': '\u231D',

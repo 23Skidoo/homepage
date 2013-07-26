@@ -2,7 +2,7 @@
  *
  *  MathJax/jax/output/HTML-CSS/entities/s.js
  *
- *  Copyright (c) 2010 Design Science, Inc.
+ *  Copyright (c) 2010-2013 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -36,6 +36,7 @@
     'Sub': '\u22D0',
     'Sup': '\u22D1',
     'sacute': '\u015B',
+    'sbquo': '\u201A',
     'sc': '\u227B',
     'scE': '\u2AB4',
     'scaron': '\u0161',
@@ -62,6 +63,7 @@
     'shortmid': '\u2223',
     'shortparallel': '\u2225',
     'shy': '\u00AD',
+    'sigmaf': '\u03C2',
     'sim': '\u223C',
     'simdot': '\u2A6A',
     'sime': '\u2243',
@@ -143,7 +145,7 @@
     'supdsub': '\u2AD8',
     'supe': '\u2287',
     'supedot': '\u2AC4',
-    'suphsol': '\u2283\u002F',
+    'suphsol': '\u27C9',
     'suphsub': '\u2AD7',
     'suplarr': '\u297B',
     'supmult': '\u2AC2',

@@ -2,7 +2,7 @@
  *
  *  MathJax/jax/output/HTML-CSS/entities/i.js
  *
- *  Copyright (c) 2010 Design Science, Inc.
+ *  Copyright (c) 2010-2013 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@
     'Implies': '\u21D2',
     'Int': '\u222C',
     'Iogon': '\u012E',
+    'Iota': '\u0399',
     'Itilde': '\u0128',
     'Iukcy': '\u0406',
     'Iuml': '\u00CF',

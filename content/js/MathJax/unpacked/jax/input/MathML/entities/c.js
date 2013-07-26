@@ -2,7 +2,7 @@
  *
  *  MathJax/jax/output/HTML-CSS/entities/c.js
  *
- *  Copyright (c) 2010 Design Science, Inc.
+ *  Copyright (c) 2010-2013 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@
 (function (MATHML) {
   MathJax.Hub.Insert(MATHML.Parse.Entity,{
     'CHcy': '\u0427',
+    'COPY': '\u00A9',
     'Cacute': '\u0106',
     'CapitalDifferentialD': '\u2145',
     'Cayleys': '\u212D',
@@ -30,6 +31,7 @@
     'Cconint': '\u2230',
     'Cdot': '\u010A',
     'Cedilla': '\u00B8',
+    'Chi': '\u03A7',
     'ClockwiseContourIntegral': '\u2232',
     'CloseCurlyDoubleQuote': '\u201D',
     'CloseCurlyQuote': '\u2019',
@@ -79,6 +81,7 @@
     'coprod': '\u2210',
     'copy': '\u00A9',
     'copysr': '\u2117',
+    'crarr': '\u21B5',
     'cross': '\u2717',
     'csub': '\u2ACF',
     'csube': '\u2AD1',

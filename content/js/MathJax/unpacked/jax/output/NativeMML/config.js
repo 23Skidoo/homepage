@@ -1,3 +1,6 @@
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
 /*************************************************************
  *
  *  MathJax/jax/output/NativeMML/config.js
@@ -7,7 +10,7 @@
  *
  *  ---------------------------------------------------------------------
  *  
- *  Copyright (c) 2009-2011 Design Science, Inc.
+ *  Copyright (c) 2009-2013 The MathJax Consortium
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -24,14 +27,13 @@
 
 MathJax.OutputJax.NativeMML = MathJax.OutputJax({
   id: "NativeMML",
-  version: "1.1",
+  version: "2.2",
   directory: MathJax.OutputJax.directory + "/NativeMML",
   extensionDir: MathJax.OutputJax.extensionDir + "/NativeMML",
   
   config: {
     scale: 100,              // scaling factor for all math
-    showMathMenu: true,      // attach math context menu to mathml?
-    showMathMenuMSIE: true,  // separtely determine if MSIE should have math menu
+    minScaleAdjust: 50,      // minimum scaling to adjust to surrounding text
                              //  (since the code for that is a bit delicate)
     styles: {
       "DIV.MathJax_MathML": {
@@ -44,18 +46,5 @@ MathJax.OutputJax.NativeMML = MathJax.OutputJax({
 
 if (!MathJax.Hub.config.delayJaxRegistration)
   MathJax.OutputJax.NativeMML.Register("jax/mml");
-
-(function (browser) {
-  if (browser.isMSIE) {
-    //
-    //  Insert data needed to use MathPlayer for MathML output
-    //
-    var mathplayer = document.createElement("object");
-    mathplayer.id = "mathplayer"; mathplayer.classid = "clsid:32F66A20-7614-11D4-BD11-00104BD3F987";
-    document.getElementsByTagName("head")[0].appendChild(mathplayer);
-    document.namespaces.add("mjx","http://www.w3.org/1998/Math/MathML");
-    document.namespaces.mjx.doImport("#mathplayer");
-  }
-})(MathJax.Hub.Browser);
 
 MathJax.OutputJax.NativeMML.loadComplete("config.js");

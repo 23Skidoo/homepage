@@ -2,7 +2,7 @@
  *
  *  MathJax/jax/output/HTML-CSS/entities/j.js
  *
- *  Copyright (c) 2010 Design Science, Inc.
+ *  Copyright (c) 2010-2013 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -26,7 +26,6 @@
     'Jukcy': '\u0404',
     'jcirc': '\u0135',
     'jcy': '\u0439',
-    'jmath': '\u006A',
     'jsercy': '\u0458',
     'jukcy': '\u0454'
   });

@@ -2,7 +2,7 @@
  *
  *  MathJax/jax/output/HTML-CSS/entities/o.js
  *
- *  Copyright (c) 2010 Design Science, Inc.
+ *  Copyright (c) 2010-2013 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@
     'Odblac': '\u0150',
     'Ograve': '\u00D2',
     'Omacr': '\u014C',
+    'Omicron': '\u039F',
     'OpenCurlyDoubleQuote': '\u201C',
     'OpenCurlyQuote': '\u2018',
     'Or': '\u2A54',
@@ -35,7 +36,7 @@
     'Otimes': '\u2A37',
     'Ouml': '\u00D6',
     'OverBracket': '\u23B4',
-    'OverParenthesis': '\uFE35',
+    'OverParenthesis': '\u23DC',
     'oS': '\u24C8',
     'oacute': '\u00F3',
     'oast': '\u229B',
@@ -53,11 +54,12 @@
     'ograve': '\u00F2',
     'ogt': '\u29C1',
     'ohbar': '\u29B5',
-    'ohm': '\u2126',
+    'ohm': '\u03A9',
     'oint': '\u222E',
     'olarr': '\u21BA',
     'olcir': '\u29BE',
     'olcross': '\u29BB',
+    'oline': '\u203E',
     'olt': '\u29C0',
     'omacr': '\u014D',
     'omid': '\u29B6',

@@ -2,7 +2,7 @@
  *
  *  MathJax/jax/output/HTML-CSS/entities/v.js
  *
- *  Copyright (c) 2010 Design Science, Inc.
+ *  Copyright (c) 2010-2013 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -34,10 +34,10 @@
     'vBarv': '\u2AE9',
     'vDash': '\u22A8',
     'vangrt': '\u299C',
-    'varepsilon': '\u03B5',
+    'varepsilon': '\u03F5',
     'varkappa': '\u03F0',
     'varnothing': '\u2205',
-    'varphi': '\u03C6',
+    'varphi': '\u03D5',
     'varpi': '\u03D6',
     'varpropto': '\u221D',
     'varr': '\u2195',

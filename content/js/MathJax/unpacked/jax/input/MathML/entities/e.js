@@ -2,7 +2,7 @@
  *
  *  MathJax/jax/output/HTML-CSS/entities/e.js
  *
- *  Copyright (c) 2010 Design Science, Inc.
+ *  Copyright (c) 2010-2013 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -32,8 +32,10 @@
     'EmptySmallSquare': '\u25FB',
     'EmptyVerySmallSquare': '\u25AB',
     'Eogon': '\u0118',
+    'Epsilon': '\u0395',
     'Equal': '\u2A75',
     'Esim': '\u2A73',
+    'Eta': '\u0397',
     'Euml': '\u00CB',
     'eDDot': '\u2A77',
     'eDot': '\u2251',
@@ -49,7 +51,7 @@
     'egrave': '\u00E8',
     'egsdot': '\u2A98',
     'el': '\u2A99',
-    'elinters': '\uFFFD',
+    'elinters': '\u23E7',
     'elsdot': '\u2A97',
     'emacr': '\u0113',
     'emptyset': '\u2205',
@@ -63,6 +65,7 @@
     'epar': '\u22D5',
     'eparsl': '\u29E3',
     'eplus': '\u2A71',
+    'epsilon': '\u03B5',
     'eqcirc': '\u2256',
     'eqcolon': '\u2255',
     'eqsim': '\u2242',
@@ -77,6 +80,7 @@
     'esdot': '\u2250',
     'esim': '\u2242',
     'euml': '\u00EB',
+    'euro': '\u20AC',
     'excl': '\u0021',
     'exist': '\u2203',
     'expectation': '\u2130',

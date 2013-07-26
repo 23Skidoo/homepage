@@ -2,7 +2,7 @@
  *
  *  MathJax/jax/output/HTML-CSS/entities/m.js
  *
- *  Copyright (c) 2010 Design Science, Inc.
+ *  Copyright (c) 2010-2013 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -24,8 +24,8 @@
     'Mcy': '\u041C',
     'MediumSpace': '\u205F',
     'Mellintrf': '\u2133',
+    'Mu': '\u039C',
     'mDDot': '\u223A',
-    'macr': '\u00AF',
     'male': '\u2642',
     'maltese': '\u2720',
     'map': '\u21A6',

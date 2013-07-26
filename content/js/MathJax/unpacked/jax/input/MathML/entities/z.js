@@ -2,7 +2,7 @@
  *
  *  MathJax/jax/output/HTML-CSS/entities/z.js
  *
- *  Copyright (c) 2010 Design Science, Inc.
+ *  Copyright (c) 2010-2013 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -26,12 +26,15 @@
     'Zcy': '\u0417',
     'Zdot': '\u017B',
     'ZeroWidthSpace': '\u200B',
+    'Zeta': '\u0396',
     'zacute': '\u017A',
     'zcaron': '\u017E',
     'zcy': '\u0437',
     'zdot': '\u017C',
     'zeetrf': '\u2128',
-    'zhcy': '\u0436'
+    'zhcy': '\u0436',
+    'zwj': '\u200D',
+    'zwnj': '\u200C'
   });
 
   MathJax.Ajax.loadComplete(MATHML.entityDir+"/z.js");

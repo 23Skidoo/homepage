@@ -2,7 +2,7 @@
  *
  *  MathJax/jax/output/HTML-CSS/entities/k.js
  *
- *  Copyright (c) 2010 Design Science, Inc.
+ *  Copyright (c) 2010-2013 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@
   MathJax.Hub.Insert(MATHML.Parse.Entity,{
     'KHcy': '\u0425',
     'KJcy': '\u040C',
+    'Kappa': '\u039A',
     'Kcedil': '\u0136',
     'Kcy': '\u041A',
     'kcedil': '\u0137',

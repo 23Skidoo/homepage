@@ -2,7 +2,7 @@
  *
  *  MathJax/jax/output/HTML-CSS/entities/f.js
  *
- *  Copyright (c) 2010 Design Science, Inc.
+ *  Copyright (c) 2010-2013 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@
     'fflig': '\uFB00',
     'ffllig': '\uFB04',
     'filig': '\uFB01',
+    'fjlig': '\u0066\u006A',
     'fllig': '\uFB02',
     'fltns': '\u25B1',
     'fnof': '\u0192',
@@ -50,7 +51,8 @@
     'frac45': '\u2158',
     'frac56': '\u215A',
     'frac58': '\u215D',
-    'frac78': '\u215E'
+    'frac78': '\u215E',
+    'frasl': '\u2044'
   });
 
   MathJax.Ajax.loadComplete(MATHML.entityDir+"/f.js");
