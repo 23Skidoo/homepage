@@ -115,8 +115,8 @@ feedConfiguration = FeedConfiguration
     , feedRoot        = "http://coldwa.st/e"
     }
 
--- HACK. Relativize all urls except those that start with '/e'. Code copied from
--- Hakyll.Web.Html.RelativizeUrls.
+-- HACK. Relativize all urls except those that start with '/e/'. Code copied
+-- from Hakyll.Web.Html.RelativizeUrls.
 
 myRelativizeUrls :: Item String -> Compiler (Item String)
 myRelativizeUrls item = do
@@ -132,5 +132,5 @@ myRelativizeUrlsWith root = withUrls rel
   where
     isRel x = "/" `isPrefixOf` x && not ("//" `isPrefixOf` x)
               -- The only thing changed
-              && not ("/e" `isPrefixOf` x)
+              && not ("/e/" `isPrefixOf` x)
     rel x   = if isRel x then root ++ x else x
