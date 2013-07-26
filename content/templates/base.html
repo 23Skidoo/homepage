@@ -1,20 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>$title$</title>
-        <link rel="stylesheet" type="text/css" href="/e/css/style.css" />
-        <link rel="stylesheet" type="text/css" href="/e/css/syntax.css" />
-        <script type="text/javascript"
-                src="/e/js/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-        </script>
-        <link rel="alternate" type="application/rss+xml"
-              title="RSS" href="http://feeds.feedburner.com/ChurningAndChurning" />
-    </head>
-    <body>
-      <a href="/e/blog"><div id="rect"></div></a>
-      $body$
-    </body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$title$</title>
+    <link rel="stylesheet" type="text/css"
+          href="/e/css/bootstrap.min.css" media="screen"/>
+    <link rel="stylesheet" type="text/css"
+          href="/e/css/syntax.css" media="screen"/>
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way
+                              to the bottom of the topbar */
+      }
+    </style>
+    <link rel="alternate" type="application/rss+xml"
+          title="RSS" href="http://feeds.feedburner.com/ChurningAndChurning" />
+    <link rel="shortcut icon" href="/e/favicon.ico">
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar"
+                  data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="/">coldwa.st/e</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="/e/blog">Posts</a></li>
+              <li><a href="/">About</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+    $body$
+    </div>
+
+    <script type="text/javascript" src="/e/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/e/js/bootstrap.min.js"></script>
+    <script type="text/javascript"
+            src="/e/js/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+  </body>
 </html>
