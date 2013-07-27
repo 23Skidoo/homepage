@@ -1,7 +1,26 @@
-<h1>$title$</h1>
-<div class="tags">
-  Tags: $tags$.
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <button type="button" class="btn btn-navbar"
+              data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="brand" href="/">coldwa.st/e</a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <li class="active"><a href="/e/blog">Posts</a></li>
+          <li><a href="/">About</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
 </div>
+
+<div class="container">
+<h1>$title$</h1>
+<p class="muted">Tags: $tags$.</small>
 
 $body$
 
@@ -31,4 +50,5 @@ $body$
     Disqus.</a></noscript>
 <p><a href="http://disqus.com" class="dsq-brlink">blog comments powered
     by <span class="logo-disqus">Disqus</span></a></p>
+</div>
 </div>

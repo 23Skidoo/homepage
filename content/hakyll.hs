@@ -104,7 +104,8 @@ myPageCompiler = pandocCompilerWith defaultHakyllReaderOptions myWriterOptions
 
 myWriterOptions :: WriterOptions
 myWriterOptions = defaultHakyllWriterOptions
-                  { writerHTMLMathMethod  = MathJax "" }
+                  { writerHtml5          = True
+                  , writerHTMLMathMethod = MathJax "" }
 
 feedConfiguration :: FeedConfiguration
 feedConfiguration = FeedConfiguration

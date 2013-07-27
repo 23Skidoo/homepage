@@ -17,7 +17,7 @@ interaction with `ghc --make`). Until my patches are accepted into the main
 repo, they'll live [on Darcden](http://darcsden.com/23Skidoo) (not much there
 yet!).
 
-![Thread communication in the prototype](/e/img/GSoC2011-Design.png)
+![](/e/img/GSoC2011-Design.png "Thread communication in the prototype")
 
 While I haven't yet done much work on modifying the cabal-install proper, I've
 produced a small [prototype](https://gist.github.com/982483) that illustrates my
