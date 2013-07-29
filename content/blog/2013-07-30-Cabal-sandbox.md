@@ -134,7 +134,6 @@ can be easily done with the `--sandbox` option:
 Using multiple different versions of GHC simultaneously is also supported, via
 the `-w` option:
 
-    # TODO: this actually seems to be broken right now, at least with build-type: Custom
     $ cabal sandbox init
     $ cabal install --only-dependencies -w /path/to/ghc-1 # Install dependencies for both compilers
     $ cabal install --only-dependencies -w /path/to/ghc-2
