@@ -6,6 +6,7 @@
 
 cd server
 cabal build
+strip -s dist/build/server/server
 rsync -e ssh -varuzP dist/build/server/server www@coldwaste:bin/homepage-server
 cd ..
 
