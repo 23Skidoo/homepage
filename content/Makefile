@@ -1,8 +1,9 @@
-GHC_VERSION=7.4.2
+GHC_VERSION=i386-linux-ghc-7.4.2
 
 hakyll : hakyll.hs
 	ghc -no-user-package-conf -package-conf \
-	cabal-dev/packages-$(GHC_VERSION).conf -Wall --make hakyll.hs
+	.cabal-sandbox/$(GHC_VERSION)-packages.conf.d -Wall --make hakyll.hs \
+	-odir dist -hidir dist -o $@
 
 all : hakyll
 	./hakyll rebuild
