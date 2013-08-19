@@ -1,7 +1,8 @@
 #! /bin/sh
 
 # On server:
-# sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8000
+# iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8000
+# Or use authbind
 
 cd server
 cabal build
