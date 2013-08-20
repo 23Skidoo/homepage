@@ -221,4 +221,5 @@ Acknowledgements
 
 Thanks to Johan Tibell, Duncan Coutts and Andres Löh for code reviews and
 guidance, and to Google for paying me for working on this project during last
-summer.
+summer. Thanks to Rogan Creswick for writing the original `cabal-dev` tool,
+which this work builds upon.
