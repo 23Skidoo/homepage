@@ -21,7 +21,7 @@ by using `cabal-dev`. Assuming you already have a previous version of `cabal`
 installed:
 
     $ git clone git://github.com/haskell/cabal.git /path/to/cabal
-    $ cd /path/to/cabal/cabal-install
+    $ cd /path/to/cabal
     $ cabal install Cabal/ cabal-install/
 
 That's all! Now you have the latest version of the `cabal` tool installed under
