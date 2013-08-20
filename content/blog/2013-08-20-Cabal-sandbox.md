@@ -20,14 +20,12 @@ The recommended method of bootstrapping the Git version of the `cabal` tool is
 by using `cabal-dev`. Assuming you already have a previous version of `cabal`
 installed:
 
-    $ cabal install cabal-dev
     $ git clone git://github.com/haskell/cabal.git /path/to/cabal
     $ cd /path/to/cabal/cabal-install
-    $ cabal-dev add-source ../Cabal
-    $ cabal-dev install
+    $ cabal install Cabal/ cabal-install/
 
 That's all! Now you have the latest version of the `cabal` tool installed under
-`/path/to/cabal/cabal-install/cabal-dev/bin`.
+`~/.cabal/bin`.
 
 What are sandboxes and why are they needed?
 -------------------------------------------
@@ -63,9 +61,11 @@ While we know what is the right way to fix this issue (see the
 ["future work"](#future-work) section below), getting there will take time, and
 sandboxes present a relatively low-cost interim solution. The idea is to build
 each package in an isolated environment ("sandbox") with a sandbox-local package
-database, thus minimising the risk of such conflicts as described
-above. Sandboxes are also useful when your package depends on patched or
-unreleased libraries.
+database. Because sandboxes are per-project, we can constrain them to be
+internally consistent and simply prohibit such conflicts as described above.
+
+Besides alleviating the "Cabal hell" problem, sandboxes are also useful when
+your package depends on patched or unreleased libraries.
 
 Usage
 -----
@@ -184,9 +184,8 @@ packages are reinstalled each time the sandboxed package is built. To get
 `cabal-dev`'s behaviour, use `cabal add-source --snapshot`.
 
 Another difference is that sandboxes are constrained to be consistent - that is,
-we don't allow multiple versions of the same package inside a single
-sandbox. (TODO: in reality this is more complicated - e.g. right now you can
-'cabal install' both lifted-base-0.2.1.0 and 0.2.0.5 - bug?)
+destructively reinstalling a package (like in the introduction example) is not
+allowed. Installing multiple versions of a package is still fine.
 
 Future work
 -----------
@@ -208,3 +207,10 @@ postponed until the next release (1.20). For more details on this, see the
 
 Last but not least, we're really interested in your feedback on this feature,
 especially in how well it works on large-scale projects.
+
+Acknowledgements
+----------------
+
+Thanks to Johan Tibell, Duncan Coutts and Andres Löh for code reviews and
+guidance, and to Google for paying me for working on this project during last
+summer.
