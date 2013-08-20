@@ -25,6 +25,16 @@ Assuming you already have a previous version of `cabal` installed:
 That's all! Now you have the latest version of the `cabal` tool installed under
 `~/.cabal/bin`.
 
+Alternatively, if you have only GHC (but not `cabal`) installed:
+
+    $ git clone git://github.com/haskell/cabal.git /path/to/cabal
+    $ cd /path/to/cabal/Cabal
+    $ runhaskell Setup.hs configure
+    $ runhaskell Setup.hs build
+    $ runhaskell Setup.hs install
+    $ cd ../cabal-install
+    $ sh bootstrap.sh
+
 What are sandboxes and why are they needed?
 -------------------------------------------
 
