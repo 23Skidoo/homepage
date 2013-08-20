@@ -16,9 +16,7 @@ already used `cabal-dev`, feel free to
 Building Cabal from git
 -----------------------
 
-The recommended method of bootstrapping the Git version of the `cabal` tool is
-by using `cabal-dev`. Assuming you already have a previous version of `cabal`
-installed:
+Assuming you already have a previous version of `cabal` installed:
 
     $ git clone git://github.com/haskell/cabal.git /path/to/cabal
     $ cd /path/to/cabal
