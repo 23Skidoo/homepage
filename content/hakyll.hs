@@ -33,10 +33,11 @@ main = hakyll $ do
   -- Posts
   match "blog/*" $ do
     route $ setExtension ".html"
+    let ctx = postCtx tags
     compile $ myPageCompiler
       >>= saveSnapshot "content"
-      >>= loadAndApplyTemplate "templates/entry.html" (postCtx tags)
-      >>= loadAndApplyTemplate "templates/base.html" defaultContext
+      >>= loadAndApplyTemplate "templates/entry.html" ctx
+      >>= loadAndApplyTemplate "templates/base.html"  ctx
       >>= myRelativizeUrls
 
   -- Post list
@@ -45,25 +46,25 @@ main = hakyll $ do
     compile $ do
       list <- postList tags "blog/*" recentFirst
       tagCloud <- renderTagCloud 100 120 tags
+      let ctx = constField "title"    "Posts"  `mappend`
+                constField "tagcloud" tagCloud `mappend`
+                constField "entries"  list     `mappend` defaultContext
       makeItem ""
-        >>= loadAndApplyTemplate "templates/entries.html"
-            (constField "title"    "Posts"  `mappend`
-             constField "tagcloud" tagCloud `mappend`
-             constField "entries"  list     `mappend` defaultContext)
-        >>= loadAndApplyTemplate "templates/base.html" defaultContext
+        >>= loadAndApplyTemplate "templates/entries.html" ctx
+        >>= loadAndApplyTemplate "templates/base.html"    ctx
         >>= myRelativizeUrls
 
   -- Tags
   tagsRules tags $ \tag pattern -> do
-    let title = "Posts tagged '" ++ tag ++ "'"
     route idRoute
     compile $ do
       list <- postList tags pattern recentFirst
+      let title = "Posts tagged '" ++ tag ++ "'"
+          ctx   = constField "title"   title `mappend`
+                  constField "entries" list  `mappend` defaultContext
       makeItem ""
-        >>= loadAndApplyTemplate "templates/tags.html"
-            (constField "title"   title `mappend`
-             constField "entries" list  `mappend` defaultContext)
-        >>= loadAndApplyTemplate "templates/base.html" defaultContext
+        >>= loadAndApplyTemplate "templates/tags.html" ctx
+        >>= loadAndApplyTemplate "templates/base.html" ctx
         >>= myRelativizeUrls
 
   -- Templates
