@@ -1,5 +1,5 @@
 ---
-title: Home
+title: About
 ---
 
 I am a Computer Science student with a long-standing interest in statically
