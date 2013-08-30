@@ -133,7 +133,7 @@ Sometimes one wants to share a single sandbox between multiple packages. This
 can be easily done with the `--sandbox` option:
 
     $ cd /path/to/shared-sandbox
-    $ cabal sandbox init
+    $ cabal sandbox init --sandbox .
     $ cd /path/to/package-a
     $ cabal sandbox init --sandbox /path/to/shared-sandbox
     $ cd /path/to/package-b
