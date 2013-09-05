@@ -110,8 +110,8 @@ myWriterOptions = defaultHakyllWriterOptions
 
 feedConfiguration :: FeedConfiguration
 feedConfiguration = FeedConfiguration
-    { feedTitle       = "Churning and Churning"
-    , feedDescription = "Much wailing and gnashing of teeth"
+    { feedTitle       = "coldwa.st/e - All posts"
+    , feedDescription = "Personal programming blog. Mostly about Haskell."
     , feedAuthorName  = "Mikhail Glushenkov"
     , feedAuthorEmail = "mikhail.glushenkov@gmail.com"
     , feedRoot        = "http://coldwa.st/e"
