@@ -127,7 +127,7 @@ myRelativizeUrls item = do
     Nothing -> item
     Just r  -> fmap (myRelativizeUrlsWith $ toSiteRoot r) item
 
-myRelativizeUrlsWith :: String  -- ^ Path to the site root
+myRelativizeUrlsWith :: String     -- ^ Path to the site root
                         -> String  -- ^ HTML to relativize
                         -> String  -- ^ Resulting HTML
 myRelativizeUrlsWith root = withUrls rel
