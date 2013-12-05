@@ -1,5 +1,7 @@
 #! /bin/sh
 
+set -e
+
 # On server:
 # iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8000
 # Or use authbind
@@ -12,6 +14,7 @@ cd ..
 
 cd content
 make all
+rm _site/js || true
 ln -s ../js _site/js
 rsync -e ssh -varuzPL _site/ www@coldwaste:www/static
 cd ..
