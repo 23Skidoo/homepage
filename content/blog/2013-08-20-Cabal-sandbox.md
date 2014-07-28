@@ -102,7 +102,7 @@ modified, it is reinstalled automatically.
     $ cabal build                                  # Modified dependency is automatically reinstalled
 
 Normally, the sandbox settings (such as optimisation level) are inherited from
-the main Cabal config file (`$HOME/cabal/config`). Sometimes, though, you need
+the main Cabal config file (`$HOME/.cabal/config`). Sometimes, though, you need
 to change some settings specifically for a single sandbox. You can do this by
 creating a `cabal.config` file in the same directory with your
 `cabal.sandbox.config` (which was created by `sandbox init`). This file has the
