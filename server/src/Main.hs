@@ -23,9 +23,9 @@ site = ifTop (redirect "/e")
                  , ("/e/blog/:id", serveHtmlFile "static/blog")
                  , ("/e/tags", serveFile rootFile)
                  , ("/e/tags/:id", serveHtmlFile "static/tags")
+                 , ("/e", serveDirectory "static")
+                 , ("", fileNotFound)
                  ]
-       <|> dir "e" (serveDirectory "static")
-       <|> fileNotFound
 
 serveHtmlFile :: B.ByteString -> Snap ()
 serveHtmlFile pth = do
