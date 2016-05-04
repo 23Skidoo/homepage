@@ -1,7 +1,9 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE FlexibleContexts  #-}
 
 import Data.List(isPrefixOf)
-import Data.Monoid(mappend, mconcat)
+import Data.Monoid
+import Prelude
 
 import Hakyll
 

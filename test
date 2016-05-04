@@ -1,11 +1,12 @@
 #! /bin/sh
 
+set -e
+
 cd content
 make all
 ln -s ../js _site/js
 cd ..
 
 cd server
-cabal build
+# cabal build
 ./dist/build/server/server
-cd ..

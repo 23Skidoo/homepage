@@ -3,12 +3,16 @@
 set -e
 
 # On server:
-# iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8000
-# Or use authbind
+# $ iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8000
+# Or use authbind:
+# $ cd www
+# $ screen
+# $ authbind ~/bin/homepage-server -p 80
+# C-a d
 
 cd server
-cabal build
-strip -s dist/build/server/server
+#cabal build
+#strip -s dist/build/server/server
 rsync -e ssh -varuzP dist/build/server/server www@coldwaste:bin/homepage-server
 cd ..
 

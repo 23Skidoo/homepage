@@ -1,5 +1,5 @@
 ---
-title: GSoC 2011: Parallelising cabal-install
+title: 'GSoC 2011: Parallelising cabal-install'
 description: First post about my GSoC 2011 project
 tags: haskell, gsoc
 ---

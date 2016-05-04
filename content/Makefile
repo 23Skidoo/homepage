@@ -1,4 +1,4 @@
-GHC_VERSION=i386-linux-ghc-7.6.3
+GHC_VERSION=x86_64-linux-ghc-7.10.3
 
 hakyll : hakyll.hs
 	ghc -no-user-package-db -package-db \

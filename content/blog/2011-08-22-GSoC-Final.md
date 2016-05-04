@@ -1,5 +1,5 @@
 ---
-title: Parallelising cabal-install: Results
+title: 'Parallelising cabal-install: Results'
 description: Post about results of my GSoC 2011 project
 tags: haskell, gsoc
 ---
