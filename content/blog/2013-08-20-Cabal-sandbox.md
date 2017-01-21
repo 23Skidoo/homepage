@@ -170,7 +170,6 @@ The sandbox feature gives you basically the same functionality as
 `cabal-dev`, but integrated with the `cabal` tool itself. Here's a
 handy cheatsheet for the users of `cabal-dev`:
 
-|-------------------------------------------|------------------------------|---------------------------------------|
 | Action                                    | `cabal-dev`                  | `cabal sandbox`                       |
 |-------------------------------------------| -----------------------------|---------------------------------------|
 | Initialise a sandbox                      | `cabal-dev $ANY_COMMAND`     | `cabal sandbox init`                  |
@@ -184,7 +183,6 @@ handy cheatsheet for the users of `cabal-dev`:
 | Run sandbox-local ghci                    | `cabal-dev ghci`             | `cabal repl`                          |
 | Sandbox-restricted `ghc-pkg`              | `cabal-dev ghc-pkg`          | `cabal sandbox hc-pkg`                |
 | Path to the sandbox directory             | `./cabal-dev`                | `./.cabal-sandbox`                    |
-|-------------------------------------------|------------------------------|---------------------------------------|
 
 One important difference is that `add-source` adds a link to a source directory
 instead of making a source snapshot available for install. The add-source
