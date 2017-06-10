@@ -1,0 +1,2 @@
+packages: content, server
+constraints: optparse-applicative < 0.13
