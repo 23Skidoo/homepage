@@ -7,3 +7,5 @@ content/_site
 content/_cache
 cabal.sandbox.config
 .cabal-sandbox
+dist-newstyle/
+.ghc.environment.*
