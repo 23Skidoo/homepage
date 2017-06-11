@@ -13,12 +13,11 @@ set -e
 cd server
 #cabal build
 #strip -s dist/build/server/server
-rsync -e ssh -varuzP dist/build/server/server www@coldwaste:bin/homepage-server
+rsync -e ssh -varuzP dist-newstyle/build/x86_64-linux/ghc-8.0.2/server-0.1/build/server/server coldwaste:bin/homepage-server
 cd ..
 
 cd content
-make all
 rm _site/js || true
 ln -s ../js _site/js
-rsync -e ssh -varuzPL _site/ www@coldwaste:www/static
+rsync -e ssh -varuzPL _site/ coldwaste:www/static
 cd ..
