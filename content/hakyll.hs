@@ -26,7 +26,7 @@ main = hakyll $ do
     route $ setExtension ".html"
     compile $ pandocCompiler
       >>= loadAndApplyTemplate "templates/index.html" defaultContext
-      >>= loadAndApplyTemplate "templates/base.html" defaultContext
+      >>= loadAndApplyTemplate "templates/base.html"  defaultContext
       >>= myRelativizeUrls
 
   -- Tags
