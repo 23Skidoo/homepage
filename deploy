@@ -10,13 +10,17 @@ set -e
 # $ authbind ~/bin/homepage-server -p 80
 # C-a d
 
+SERVER_PATH=dist-newstyle/build/x86_64-linux/ghc-8.2.1/server-0.1/build/server/server
+
 cd server
-#cabal build
-#strip -s dist/build/server/server
-rsync -e ssh -varuzP dist-newstyle/build/x86_64-linux/ghc-8.0.2/server-0.1/build/server/server coldwaste:bin/homepage-server
+cabal new-build
+strip -s $SERVER_PATH
+rsync -e ssh -varuzP $SERVER_PATH coldwaste:bin/homepage-server
 cd ..
 
 cd content
+cabal new-run site -- clean
+cabal new-run site -- build
 rm _site/js || true
 ln -s ../js _site/js
 rsync -e ssh -varuzPL _site/ coldwaste:www/static

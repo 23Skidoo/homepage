@@ -3,10 +3,9 @@
 set -e
 
 cd content
-make all
+cabal new-run site -- build
 ln -s ../js _site/js
 cd ..
 
 cd server
-# cabal build
-./dist/build/server/server
+cabal new-run server
