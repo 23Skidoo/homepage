@@ -1,6 +1,6 @@
 #! /bin/sh
 
-set -e
+set -eux
 
 # On server:
 # $ iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8000

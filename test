@@ -1,6 +1,6 @@
 #! /bin/sh
 
-set -e
+set -eux
 
 cd content
 cabal new-run site -- build
