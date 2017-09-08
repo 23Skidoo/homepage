@@ -4,7 +4,7 @@ set -eux
 
 cd content
 cabal new-run site -- build
-ln -s ../js _site/js
+if [ ! -e _site/js ] ; then ln -s ../js _site/js; fi
 cd ..
 
 cd server
